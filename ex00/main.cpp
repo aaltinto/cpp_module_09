@@ -25,7 +25,7 @@ std::map<std::string, std::string> readFile(std::string file)
     while (std::getline(readFile, stream))
     {
         if (stream.find_first_of('|') != stream.find_last_of('|'))
-            
+
         std::stringstream ss(stream);
     }
 
@@ -42,5 +42,5 @@ int main(int ac, char **argv)
     if (!checkInputFile(file))
         return 1;
     std::map<std::string, std::string> input = readFile(file);
-
+    return 0;
 }
