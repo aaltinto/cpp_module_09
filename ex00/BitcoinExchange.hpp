@@ -6,11 +6,18 @@
 class BitcoinExchange
 {
 	private:
-		std::map<std::string, std::string> _db;
+		typedef struct Data
+		{
+			float		value;
+			std::string	date;
+			Data		*next;
+		}	Data;
+		Data _data;
+		std::map<std::string, float> _db;
 
 	public:
 		/* Constructors & Destructors */
-		BitcoinExchange(void);
+		BitcoinExchange(std::string data);
 		BitcoinExchange(BitcoinExchange const &copy);
 		~BitcoinExchange(void);
 
