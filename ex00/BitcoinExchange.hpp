@@ -6,14 +6,9 @@
 class BitcoinExchange
 {
 	private:
-		typedef struct Data
-		{
-			float		value;
-			std::string	date;
-			Data		*next;
-		}	Data;
-		Data _data;
 		std::map<std::string, float> _db;
+		void	readCSV(void);
+		float	findClosestDate(std::string date);
 
 	public:
 		/* Constructors & Destructors */
