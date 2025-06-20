@@ -34,7 +34,11 @@ int checkInput(std::string input)
 
 int main(int ac, char **av)
 {
-    (void)ac;
+    if (ac < 2)
+    {
+        std::cerr << "Usage: ./RPN \"expression\"" << std::endl;
+        return 1;
+    }
     std::string input;
     for (size_t i = 1; av[i] != NULL; i++)
     {

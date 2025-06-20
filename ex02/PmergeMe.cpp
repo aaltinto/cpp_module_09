@@ -121,39 +121,41 @@ void PmergeMe::sort(void)
 {
 	double elapsedTimeVec;
 	double elapsedTimeDeque;
-	double startTime;
-	double endTime;
+	clock_t startTime;
+	clock_t endTime;
 
 	std::cout << "Before: ";
-	for (size_t i = 0; i < _dataVec.size() && i < 4; ++i)
+	for (size_t i = 0; i < _dataVec.size(); ++i)
+	{
+		if (i == 4 && _dataVec.size() > 5)
+		{
+			std::cout << "[...]";
+			break;
+		}
 		std::cout << _dataVec[i] << " ";
-	if (_dataVec.size() > 4)
-		std::cout << "[...]";
+	}
 	std::cout << std::endl;
 
-	startTime = getTime();
+	startTime = clock();
 	std::vector<int> sortedVec = sortVec(this->_dataVec);
-	endTime = getTime();
-	elapsedTimeVec = (endTime - startTime);
-	startTime = getTime();
+	endTime = clock();
+	elapsedTimeVec = (endTime - startTime) / (double)CLOCKS_PER_SEC;
+	startTime = clock();
 	std::deque<int> sortedDeque = sortDeque(this->_dataDeque);
-	endTime = getTime();
-	elapsedTimeDeque = (endTime - startTime);
+	endTime = clock();
+	elapsedTimeDeque = (endTime - startTime) / (double)CLOCKS_PER_SEC;
 	std::cout << "After: ";
-	for (size_t i = 0; i < sortedVec.size() && i < 4; ++i)
+	for (size_t i = 0; i < sortedVec.size(); ++i)
+	{
+		if (i == 4 && sortedVec.size() > 5)
+		{
+			std::cout << "[...]";
+			break;
+		}
 		std::cout << sortedVec[i] << " ";
-	if (sortedVec.size() > 4)
-		std::cout << "[...]";
+	}
 	std::cout << std::endl;
 
 	std::cout << "Time to process a range of " << _dataVec.size() << " elements with std::vector : " << elapsedTimeVec << " us" << std::endl;
 	std::cout << "Time to process a range of " << _dataDeque.size() << " elements with std::deque : " << elapsedTimeDeque << " us" << std::endl;
-}
-
-double	getTime(void)
-{
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000000 + tv.tv_usec);
 }

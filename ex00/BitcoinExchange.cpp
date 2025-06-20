@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <cstdlib>
 
 static int checkValidDate(int year, int month, int day)
 {
@@ -101,7 +102,7 @@ float BitcoinExchange::findClosestDate(std::string date)
 
 BitcoinExchange::BitcoinExchange(std::string data)
 {
-	std::ifstream	readData(data);
+	std::ifstream	readData(data.c_str());
 	std::string		line;
 	std::string		date;
 	size_t			count = 1;
@@ -196,10 +197,10 @@ void	BitcoinExchange::readCSV(void)
 					continue;
 				if (!inputChecker(part, 1, 1))
 					throw std::runtime_error("Bad input in csv => " + line);
-					date = part;
-					this->_db[part];
-					continue;
-				}
+				date = part;
+				this->_db[part];
+				continue;
+			}
 				if (del == 3 && !inputChecker(part, 0, 1))
 					continue;
 				if (!inputChecker(part, 0, 1))

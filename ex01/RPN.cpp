@@ -1,6 +1,7 @@
 #include "RPN.hpp"
 #include <iostream>
 #include <ctype.h>
+#include <cstdlib>
 
 RPN::RPN(std::string input)
 {

@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <deque>
-#include <sys/time.h>
+#include <ctime>
 
 class PmergeMe
 {

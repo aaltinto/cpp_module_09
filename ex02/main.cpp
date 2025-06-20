@@ -1,5 +1,6 @@
 #include <iostream>
 #include "PmergeMe.hpp"
+#include <cstdlib>
 
 bool isValidInteger(const char* str)
 {
