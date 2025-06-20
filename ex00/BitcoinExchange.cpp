@@ -149,7 +149,7 @@ BitcoinExchange::BitcoinExchange(std::string data)
 			float rate = this->findClosestDate(date);
 			if (rate < 0)
 			{
-				std::cerr << "Error: No avaible date on given date" << std::endl;
+				std::cerr << "Error: No avaible value on given date" << std::endl;
 				continue;
 			}
 			std::cout << date << "=>" << part << " = " << rate * value << std::endl;
