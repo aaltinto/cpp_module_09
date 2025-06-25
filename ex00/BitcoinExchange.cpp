@@ -6,6 +6,11 @@
 
 static int checkValidDate(int year, int month, int day)
 {
+	if (month < 1 || month > 12 || day < 1 || day > 31)
+	{
+		std::cerr << "Invalid date format" << std::endl;
+		return 0;
+	}
 	const int daysInMonths[] = {
 		31, 28, 31, 30, 31, 30, 
         31, 31, 30, 31, 30, 31 
@@ -46,9 +51,9 @@ static int inputChecker(std::string input, int date, int csv)
 		return 0;
 	if (date)
 	{
-		int year;
-		int month;
-		int day;
+		int year = -1;
+		int month = -1;
+		int day = -1;
 		int	j = 0;
 		while (std::getline(ss, line, '-'))
 		{
@@ -69,7 +74,11 @@ static int inputChecker(std::string input, int date, int csv)
 			}
 		}
 		if (!checkValidDate(year, month, day))
+		{
+			if (csv)
+				throw std::runtime_error("Invalid date in csv: " + input);
 			return 0;
+		}
 	}
 	if (!csv && !date)
 	{
