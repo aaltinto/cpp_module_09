@@ -40,11 +40,7 @@ static int inputChecker(std::string input, int date, int csv)
 			continue;
 		}
 		if (!std::isdigit(input[i]))
-		{
-			if (!date && !csv)
-				return -1;
 			return 0;
-		}
 	}
 	if ((date && count > 2) || (!date && count > 1))
 		return 0;
@@ -100,14 +96,17 @@ float BitcoinExchange::findClosestDate(std::string date)
 	return -1;
 }
 
-BitcoinExchange::BitcoinExchange(std::string data)
+BitcoinExchange::BitcoinExchange(std::string file, std::string data)
 {
-	std::ifstream	readData(data.c_str());
+	std::ifstream	readData(file.c_str());
 	std::string		line;
 	std::string		date;
 	size_t			count = 1;
+
+	if (!readData.is_open())
+		throw std::runtime_error("Could not open file: " + file);
 	
-	this->readCSV();
+	this->readCSV(data);
 	
 	while (getline(readData, line))
 	{
@@ -135,9 +134,9 @@ BitcoinExchange::BitcoinExchange(std::string data)
 			if (count == 3 && 1 != inputChecker(part, 0, 0))
 			continue;
 			int err = inputChecker(part, 0, 0);
-			if (err == -1)
+			if (err == 0)
 			{
-				std::cerr << "Error: Bad input => value should be a positive number" << std::endl;
+				std::cerr << "Error: Bad input => " << part << std::endl;
 				continue;
 			}
 			if (err == 2)
@@ -174,13 +173,16 @@ BitcoinExchange const	&BitcoinExchange::operator=(const BitcoinExchange &copy)
 	return (*this);
 }
 
-void	BitcoinExchange::readCSV(void)
+void	BitcoinExchange::readCSV(std::string data)
 {
-	std::ifstream	fs("data.csv");
+	std::ifstream	fs(data.c_str());
 	std::string		line;
 	std::string		part;
 	std::string		date;
 	size_t			del = 1;
+
+	if (!fs.is_open())
+		throw std::runtime_error("Could not open file: " + data);
 
 	while (std::getline(fs, line))
 	{

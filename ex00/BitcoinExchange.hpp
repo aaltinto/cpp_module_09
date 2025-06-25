@@ -7,12 +7,12 @@ class BitcoinExchange
 {
 	private:
 		std::map<std::string, float> _db;
-		void	readCSV(void);
+		void	readCSV(std::string data);
 		float	findClosestDate(std::string date);
 
 	public:
 		/* Constructors & Destructors */
-		BitcoinExchange(std::string data);
+		BitcoinExchange(std::string file="input.csv", std::string data="data.csv");
 		BitcoinExchange(BitcoinExchange const &copy);
 		~BitcoinExchange(void);
 
