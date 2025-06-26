@@ -39,11 +39,6 @@ int main(int argc, char **argv)
         }
         
         int value = std::atoi(argv[i]);
-        if (value <= 0)
-        {
-            std::cerr << "Error: Only positive integers are not allowed: " << value << std::endl;
-            return 1;
-        }
         pmergeMe.add(value);
     }
     pmergeMe.sort();
