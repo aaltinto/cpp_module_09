@@ -1,5 +1,6 @@
 #include "PmergeMe.hpp"
 #include <iostream>
+#include <iomanip> 
 
 PmergeMe::PmergeMe(void)
 {
@@ -63,8 +64,6 @@ std::vector<int> PmergeMe::sortVec(std::vector<int> &container)
 		return container;
 
 	std::vector<int> larger, smaller;
-	larger.reserve(n/2 + n%2);
-	smaller.reserve(n/2);
 	for (size_t i =0; i + 1 < n; i += 2)
 	{
 		if (container[i] < container[i + 1])
@@ -156,6 +155,7 @@ void PmergeMe::sort(void)
 	}
 	std::cout << std::endl;
 
+	std::cout << std::fixed << std::setprecision(5);
 	std::cout << "Time to process a range of " << _dataVec.size() << " elements with std::vector : " << elapsedTimeVec << " us" << std::endl;
 	std::cout << "Time to process a range of " << _dataDeque.size() << " elements with std::deque : " << elapsedTimeDeque << " us" << std::endl;
 }

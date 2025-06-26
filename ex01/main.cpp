@@ -1,45 +1,8 @@
 #include "RPN.hpp"
 #include <iostream>
 
-int checkInput(std::string input)
+static void standardizeInput(std::string &input, char **av)
 {
-    int nums = 0;
-    int operators = 0;
-    if (input.size() < 3)
-        return 0;
-    for (size_t i = 0; i < input.size(); i++)
-    {
-        if (input[i] == ' ')
-            continue;
-        if (nums >= 2 && operators > nums - 1)
-            throw std::runtime_error("Not enough numbers");
-        if (std::isdigit(input[i]))
-        {
-            nums++;
-            continue;
-        }
-        if (input[i] == '+' || input[i] == '-'
-            || input[i] == '*' || input[i] == '/')
-            {
-            operators++;
-            continue;
-        }
-        throw std::runtime_error("Invalid character");
-        return 0;
-    }
-    if (operators != nums - 1)
-        throw std::runtime_error("Not enough operators");
-    return 1;
-}
-
-int main(int ac, char **av)
-{
-    if (ac < 2)
-    {
-        std::cerr << "Usage: ./RPN \"expression\"" << std::endl;
-        return 1;
-    }
-    std::string input;
     for (size_t i = 1; av[i] != NULL; i++)
     {
         std::string tmp(av[i]);
@@ -50,9 +13,19 @@ int main(int ac, char **av)
             input += tmp[i];
         }
     }
+}
+
+int main(int ac, char **av)
+{
+    if (ac < 2)
+    {
+        std::cerr << "Usage: ./RPN \"expression\"" << std::endl;
+        return 1;
+    }
+    std::string input;
     try
     {
-        checkInput(input);
+        standardizeInput(input, av);
         RPN rpn(input);
     }
     catch(const std::exception& e)

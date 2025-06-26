@@ -6,10 +6,11 @@
 class RPN
 {
 	private:
+		std::string _input;
 		std::stack<int> _nums;
 	public:
 		/* Constructors & Destructors */
-		RPN(std::string input);
+		RPN(std::string input = "");
 		RPN(RPN const &copy);
 		~RPN(void);
 
@@ -17,6 +18,8 @@ class RPN
 		RPN const	&operator=(RPN const &copy);
 		
 		/* Member Functions */
-		void calculate(void);
+		void setInput(std::string input);
+		void calculate(char op);
+		void run(void);
 };
 

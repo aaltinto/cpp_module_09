@@ -6,13 +6,12 @@
 int main(int ac, char **argv)
 {
     if (ac < 2)
-    {
-        std::cout << "Need an input file" << std::endl;
-        return 1;
-    }
+        return err("Need an input file");
     std::string file(argv[1]);
     try
     {
+        if (ac > 3)
+            return err("Too many arguments");
         if (ac == 2)
             BitcoinExchange btc(file);
         else

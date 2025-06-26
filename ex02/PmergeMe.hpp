@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <deque>
-#include <ctime>
 
 class PmergeMe
 {
@@ -27,6 +26,3 @@ class PmergeMe
 		void			add(int value);
 		void			sort(void);
 };
-
-
-double	getTime(void);

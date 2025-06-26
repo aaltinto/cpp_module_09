@@ -7,10 +7,8 @@
 static int checkValidDate(int year, int month, int day)
 {
 	if (month < 1 || month > 12 || day < 1 || day > 31)
-	{
-		std::cerr << "Invalid date format" << std::endl;
 		return 0;
-	}
+
 	const int daysInMonths[] = {
 		31, 28, 31, 30, 31, 30, 
         31, 31, 30, 31, 30, 31 
@@ -105,6 +103,18 @@ float BitcoinExchange::findClosestDate(std::string date)
 	return -1;
 }
 
+static void deleteSpaces(std::string &str)
+{
+	size_t i = 0;
+	while (i < str.size())
+	{
+		if (str[i] == ' ')
+			str.erase(i, 1);
+		else
+			i++;
+	}
+}
+
 BitcoinExchange::BitcoinExchange(std::string file, std::string data)
 {
 	std::ifstream	readData(file.c_str());
@@ -129,13 +139,18 @@ BitcoinExchange::BitcoinExchange(std::string file, std::string data)
 		}
 		while (std::getline(ss, part, '|'))
 		{
+			deleteSpaces(part);
 			count++;
 			if (count % 2 == 0)
 			{
 				if (count == 2 && 1 != inputChecker(part, 1, 0))
 					continue;
 				if (!inputChecker(part, 1, 0))
+				{
 					std::cerr << "Error: Bad input => " << part << std::endl;
+					count = 1;
+					break;
+				}
 				date = part;
 				continue;
 			}
@@ -161,7 +176,7 @@ BitcoinExchange::BitcoinExchange(std::string file, std::string data)
 				std::cerr << "Error: No avaible value on given date" << std::endl;
 				continue;
 			}
-			std::cout << date << "=>" << part << " = " << rate * value << std::endl;
+			std::cout << date << " => " << part << " = " << rate * value << std::endl;
 		}
 	}
 }
@@ -195,7 +210,7 @@ void	BitcoinExchange::readCSV(std::string data)
 
 	while (std::getline(fs, line))
 	{
-
+		deleteSpaces(line);
 		if (line.find_first_of(',') != line.find_last_of(','))
 			throw std::runtime_error("More than one delimiter => " + line);
 		std::stringstream	ss(line);
